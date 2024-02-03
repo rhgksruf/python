@@ -1,23 +1,28 @@
 import pandas
 import matplotlib.pyplot as plt
 
-#30대에서 시민덕희 본사람중 음료 비율
+# x = [i for i in range(10)]
+# y = [i for i in range(10,20)]
+# plt.plot(x,y)
+# plt.show()
 df = pandas.read_csv('cgv.csv')
-age_30_civil_df = df[df['age']==30][df['movie']=='시민 덕희']
-drink = age_30_civil_df['drink'].value_counts()
+movie_groupby_time = df.groupby('times')['movie'].value_counts()
+night_movies = movie_groupby_time['심야']
+print(df)
 
 plt.rcParams['font.family'] = 'Malgun Gothic' #한글 폰트 나오도록 설정
-# pie그래프(일변량)
-# drink.plot.pie(autopct = '%1.1f%%') # 숫자 비율을 소수점 1까지 보여주기
+#night_movies.plot.pie(autopct = '%1.1f%%') # 숫자 비율을 소수점 1까지 보여주기
+#plt.title('심야 영화 파이그래프')
+#plt.show()
 
-# bar 그래프(이변량)
-drink.plot(kind='bar')
-plt.title('음료와 30대가 시민 덕희 본 사람의 관계')
+movie_groupby_snacks = df.groupby('movie')['snacks'].value_counts()
+your_name = movie_groupby_snacks['너의 이름은']
+your_name.plot.pie(autopct = '%1.1f%%')
+plt.title('너의 이름은 그래프')
 plt.show()
 
-# age_group = df.groupby('age').value_counts()
-# print(age_group.loc[30]) #.loc
-#
-# movie_group = df.groupby('movie').value_counts()
-# print(movie_group.loc['시민 덕희']) #.loc
+
+
+
+
 
